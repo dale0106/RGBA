@@ -23,7 +23,7 @@ import model.RGBAModel;
  *
  * Features the Update / React Strategy.
  *
- * @author Gerald.Hurdle@AlgonquinCollege.com
+ * @author Cristobal D'Alessio (dale0106)
  * @version 1.0
  */
 public class MainActivity extends AppCompatActivity implements Observer
@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements Observer
     private TextView            mColorSwatch;
     private RGBAModel           mModel;
     private SeekBar             mRedSB;
+    private SeekBar             mGreenSB;
+    private SeekBar             mBlueSB;
+    private SeekBar             mAlphaSB;
+
     //TODO: declare private members for mGreenSB, mBlueSB, and mAlphaSB
 
     @Override
@@ -63,14 +67,25 @@ public class MainActivity extends AppCompatActivity implements Observer
         // reference each View
         mColorSwatch = (TextView) findViewById( R.id.colorSwatch );
         mRedSB = (SeekBar) findViewById( R.id.redSB );
+        mGreenSB = (SeekBar) findViewById(R.id.greenSB);
+        mBlueSB = (SeekBar) findViewById(R.id.blueSB);
+        mAlphaSB = (SeekBar) findViewById(R.id.alphaSB);
         //TODO: reference the remaining <SeekBar>s: green, blue and alpha
+
+
 
         // set the domain (i.e. max) for each component
         mRedSB.setMax( RGBAModel.MAX_RGB );
+        mBlueSB.setMax(RGBAModel.MAX_RGB);
+        mGreenSB.setMax(RGBAModel.MAX_RGB);
+        mAlphaSB.setMax(RGBAModel.MAX_ALPHA);
         //TODO: setMax() for the remaining <SeekBar>s: green, blue and alpha
 
         // register the event handler for each <SeekBar>
         mRedSB.setOnSeekBarChangeListener( this );
+        mGreenSB.setOnSeekBarChangeListener(this);
+        mBlueSB.setOnSeekBarChangeListener(this);
+        mAlphaSB.setOnSeekBarChangeListener(this);
         //TODO: register the remaining <SeekBar>s: green, blue and alpha
 
         // initialize the View to the values of the Model
@@ -95,6 +110,34 @@ public class MainActivity extends AppCompatActivity implements Observer
 
             case R.id.action_red:
                 mModel.asRed();
+                return true;
+
+            case R.id.action_blue:
+                mModel.asBlue();
+                return true;
+
+            case R.id.action_cyan:
+                mModel.asCyan();
+                return true;
+
+            case R.id.action_green:
+                mModel.asGreen();
+                return true;
+
+            case R.id.action_magenta:
+                mModel.asMagenta();
+                return true;
+
+            case R.id.action_black:
+                mModel.asBlack();
+                return true;
+
+            case R.id.action_white:
+                mModel.asWhite();
+                return true;
+
+            case R.id.action_yellow:
+                mModel.asYellow();
                 return true;
 
             //TODO: handle the remaining menu items
@@ -124,12 +167,17 @@ public class MainActivity extends AppCompatActivity implements Observer
             case R.id.redSB:
                 mModel.setRed( mRedSB.getProgress() );
                 break;
-
             //TODO: case R.id.greenSB
-
+            case R.id.greenSB:
+                mModel.setGreen(mGreenSB.getProgress());
+                break;
             //TODO: case R.id.blueSB
-
+            case R.id.blueSB:
+                mModel.setBlue(mBlueSB.getProgress());
+                break;
             //TODO: case R.id.alphaSB
+            case R.id.alphaSB:
+               mModel.setAlpha(mAlphaSB.getProgress());
         }
     }
 
@@ -151,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements Observer
     }
 
     private void updateBlueSB() {
+        mBlueSB.setProgress(mModel.getBlue());
         //TODO: set the blueSB's progress to the model's blue value
     }
 
@@ -162,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements Observer
     }
 
     private void updateGreenSB() {
+        mGreenSB.setProgress(mModel.getGreen());
         //TODO: set the greenSB's progress to the model's green value
     }
 
